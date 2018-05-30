@@ -13,6 +13,8 @@ import android.transition.TransitionInflater;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.animation.AccelerateDecelerateInterpolator;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.RelativeLayout;
 
 /**
@@ -21,7 +23,7 @@ import android.widget.RelativeLayout;
 
 public class TestActivity extends AppCompatActivity {
     private FloatingActionButton fabCircle;
-    private RelativeLayout root;
+    private RelativeLayout root, realContent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +31,7 @@ public class TestActivity extends AppCompatActivity {
         setContentView(R.layout.activity_test);
         fabCircle = (FloatingActionButton) findViewById(R.id.fab_circle);
         root = (RelativeLayout) findViewById(R.id.root);
+        realContent = (RelativeLayout) findViewById(R.id.realContent);
         initData();
     }
 
@@ -97,6 +100,11 @@ public class TestActivity extends AppCompatActivity {
             public void onAnimationEnd(Animator animation) {
 
                 root.setVisibility(View.VISIBLE);
+
+                Animation animation1 = AnimationUtils.loadAnimation(TestActivity.this, android.R.anim.fade_in);
+                animation1.setDuration(3000);
+                realContent.startAnimation(animation1);
+                realContent.setVisibility(View.VISIBLE);
 //                listener.onRevealShow()
             }
 
